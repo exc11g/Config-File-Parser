@@ -8,7 +8,7 @@ using namespace omfl;
 TEST(ParserTestSuite, EmptyTest) {
     std::string data = "";
 
-    const auto root = parse(data);
+    auto root = parse(data);
 
     ASSERT_TRUE(root.valid());
 }
@@ -20,7 +20,7 @@ TEST(ParserTestSuite, IntTest) {
         key3 = +28)";
 
 
-    const auto root = parse(data);
+    auto root = parse(data);
 
     ASSERT_TRUE(root.valid());
 
@@ -40,7 +40,7 @@ TEST(ParserTestSuite, InvalidIntTest) {
         key3 = "ITMO")";
 
 
-    const auto root = parse(data);
+    auto root = parse(data);
 
     ASSERT_TRUE(root.valid());
 
@@ -60,7 +60,7 @@ TEST(ParserTestSuite, FloatTest) {
         key3 = -0.001)";
 
 
-    const auto root = parse(data);
+    auto root = parse(data);
 
     ASSERT_TRUE(root.valid());
 
@@ -80,7 +80,7 @@ TEST(ParserTestSuite, InvalidFloatTest) {
         key3 = "ITMO")";
 
 
-    const auto root = parse(data);
+    auto root = parse(data);
 
     ASSERT_TRUE(root.valid());
 
@@ -99,7 +99,7 @@ TEST(ParserTestSuite, StringTest) {
         key1 = "value1")";
 
 
-    const auto root = parse(data);
+    auto root = parse(data);
 
     ASSERT_TRUE(root.valid());
 
@@ -116,7 +116,7 @@ TEST(ParserTestSuite, InvalidStringTest) {
         key1 = ["1", "2", "3"])";
 
 
-    const auto root = parse(data);
+    auto root = parse(data);
 
     ASSERT_TRUE(root.valid());
 
@@ -132,7 +132,7 @@ TEST(ParserTestSuite, ArrayTest) {
         key1 = [1, 2, 3, 4, 5, 6])";
 
 
-    const auto root = parse(data);
+    auto root = parse(data);
 
     ASSERT_TRUE(root.valid());
 
@@ -149,7 +149,7 @@ TEST(ParserTestSuite, DiffTypesArrayTest) {
     std::string data = R"(
         key1 = [1, true, 3.14, "ITMO", [1, 2, 3], ["a", "b", 28]])";
 
-    const auto root = parse(data);
+    auto root = parse(data);
 
     ASSERT_TRUE(root.valid());
 
@@ -184,7 +184,7 @@ TEST(ParserTestSuite, CommentsTest) {
 
         # It's more then university)";
 
-    const auto root = parse(data);
+    auto root = parse(data);
 
     ASSERT_TRUE(root.valid());
     ASSERT_EQ(root.Get("key1").AsInt(), 100500);
@@ -199,7 +199,7 @@ TEST(ParserTestSuite, SectionTest) {
         [section1]
         key3 = "value")";
 
-    const auto root = parse(data);
+    auto root = parse(data);
     ASSERT_TRUE(root.valid());
 
     ASSERT_EQ(root.Get("section1.key1").AsInt(), 1);
@@ -217,7 +217,7 @@ TEST(ParserTestSuite, MultiSectionTest) {
         [level1.level2-2]
         key3 = 3)";
 
-    const auto root = parse(data);
+    auto root = parse(data);
     ASSERT_TRUE(root.valid());
 
     ASSERT_EQ(root.Get("level1.key1").AsInt(), 1);
@@ -231,7 +231,7 @@ TEST(ParserTestSuite, GetSectionTest) {
         [level1.level2.level3]
         key1 = 1)";
 
-    const auto root = parse(data);
+    auto root = parse(data);
     ASSERT_TRUE(root.valid());
 
     ASSERT_EQ(root.Get("level1").Get("level2").Get("level3").Get("key1").AsInt(), 1);
